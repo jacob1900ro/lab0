@@ -1,0 +1,8 @@
+
+class informacion{
+
+};
+
+main(){
+
+};
