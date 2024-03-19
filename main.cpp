@@ -25,11 +25,9 @@ class DTFecha {
     int dia, mes, anio;
   public:
     DTFecha(int d, int m, int a) : dia(d), mes(m), anio(a) {}
-
     int getDia()  { return dia; }
     int getMes()  { return mes; }
     int getAnio()  { return anio; }
-    
 };
 
 class Informacion{
@@ -65,7 +63,7 @@ class PaginaWeb : public Informacion {
 };
 
 
-class chatGPT {
+class chatGPT : public Informacion {
   private:
     std::string Pregunta,Respuesta;
   public:
