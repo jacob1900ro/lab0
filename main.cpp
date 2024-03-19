@@ -4,5 +4,5 @@ class informacion{
 };
 
 main(){
-//hola como andan holazzz
+//hola como andan
 };
