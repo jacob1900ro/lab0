@@ -25,10 +25,20 @@ class DTFecha {
     int dia, mes, anio;
   public:
     DTFecha(int d, int m, int a) : dia(d), mes(m), anio(a) {}
-    int getDia()  { return dia; }
-    int getMes()  { return mes; }
-    int getAnio()  { return anio; }
+    int getDia();
+    int getMes();
+    int getAnio();
 };
+
+int DTFecha::getDia() {
+  return dia;
+}
+int DTFecha::getDia() {
+  return mes;
+}
+int DTFecha::getDia() {
+  return anio;
+}
 
 class Informacion{
   protected:
@@ -55,12 +65,13 @@ class PaginaWeb : public Informacion {
   public:
     PaginaWeb(int id, DTFecha f, std::string t, std::string l, std::string txt)
         : Informacion(id, f), titulo(t), link(l), texto(txt) {}
-    std::string toString() {
+    std::string toString();
+};
+std::string PaginaWeb:: toString() {
       return "PáginaWeb " + std::to_string(identificador) + ", " +
                std::to_string(fecha.getDia()) + "/" + std::to_string(fecha.getMes()) + "/" + std::to_string(fecha.getAnio()) +
                ", " + titulo + ", " + link + ", " + texto;
-    }; 
-};
+    };
 
 
 class chatGPT : public Informacion {
