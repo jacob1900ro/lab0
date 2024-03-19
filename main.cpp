@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <set>
 
 class Estudiante{
