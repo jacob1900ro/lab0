@@ -1,4 +1,4 @@
-
+//hola lindas
 class informacion{
 
 };
