@@ -1,8 +1,8 @@
-
+//hola lindas
 class informacion{
 
 };
 
 main(){
-//como andan lindas? ;)
+//hola como andan
 };
