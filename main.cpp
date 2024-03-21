@@ -27,10 +27,10 @@ class DTFecha {
 int DTFecha::getDia() {
   return dia;
 }
-int DTFecha::getDia() {
+int DTFecha::getMes() {
   return mes;
 }
-int DTFecha::getDia() {
+int DTFecha::getAnio() {
   return anio;
 }
 
@@ -42,8 +42,8 @@ class Estudiante{
     std::set<Informacion*> info;
   public:
     std::string toString();
-    void insInfo(Informacion i){ // para agregar la informacion guardada por el estudiante
-      
+    void insInfo(Informacion* i){ // para agregar la informacion guardada por el estudiante
+      info.insert(i);
     } 
     std::set<std::string> listarInfo(DTFecha Desde);
 };
@@ -53,7 +53,13 @@ std::string Estudiante::toString() {
 }
 
 std::set<std::string> Estudiante::listarInfo(DTFecha Desde) {
-  
+  std::set<std::string> res;
+  for ( auto it = info.begin(); it != info.end(); it++ ){
+    if (it.getFecha().getAnio()>=Desde.getAnio() && it.getFecha().getMes()>=Desde.getMes() && it.getFecha.getDia()>=Desde.getDia()) {
+      
+    }
+
+  }
 }
 
 class Informacion{
@@ -63,6 +69,9 @@ class Informacion{
     std::set<Estudiante*> estudiantes;
   public:
     virtual std::string toString();
+    void insEst(Estudiante* e){
+      estudiantes.insert(e);
+    }
     Informacion(int id, DTFecha f) : identificador(id), fecha(f) {}
     int getIdentificador() { return identificador; }
     DTFecha getFecha() { return fecha; }
