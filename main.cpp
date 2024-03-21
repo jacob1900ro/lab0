@@ -41,6 +41,7 @@ class Estudiante{
     int cedula;
     std::set<Informacion*> info;
   public:
+    Estudiante(std::string nombre, std::string email, int cedula) : nombre(nombre), email(email), cedula(cedula) {}
     std::string toString();
     void insInfo(Informacion* i){ // para agregar la informacion guardada por el estudiante
       info.insert(i);
@@ -53,14 +54,16 @@ std::string Estudiante::toString() {
 }
 
 std::set<std::string> Estudiante::listarInfo(DTFecha Desde) {
-  std::set<std::string> res;
-  for ( auto it = info.begin(); it != info.end(); it++ ){
-    if ((it.getFecha().getAnio()>Desde.getAnio()) ||(it.getFecha().getAnio()==Desde.getAnio() && it.getFecha().getMes() > Desde.getMes()) || 
-    (it.getFecha().getAnio()==Desde.getAnio() && it.getFecha().getMes()== Desde.getMes() && it.getFecha().getDia()>= Desde.getDia())) {         //toma las fechas mayores o iguales
-      res.insert(it.toString());    //inserta en el arreglo 
+    std::set<std::string> res;
+    for (auto it = info.begin(); it != info.end(); it++)
+    {
+        if ((it->getFecha().getAnio() > Desde.getAnio()) ||
+            (it->getFecha().getAnio() == Desde.getAnio() && it->getFecha().getMes() > Desde.getMes()) ||
+            (it->getFecha().getAnio() == Desde.getAnio() && it->getFecha().getMes() == Desde.getMes() && it->getFecha().getDia() > Desde.getDia())) {
+            res.insert(it->toString());
+        }
     }
-  }
-  return res;
+      return res;
 }
 
 
