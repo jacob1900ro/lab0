@@ -3,23 +3,17 @@
 #include <vector>
 #include <set>
 
-class Estudiante{
-  private:
-    std::string Nombre,Email;
-    int CI;
-  public:
-    std::string toString();
-    std::set<std::string> listarInfo(DTFecha Desde);
-};
-
 class DTInfoEstudiante{
   private:
-    int CI;
-    std::string NombreEst;
-    int IdentificadorInfo;
+    int cédula;
+    std::string nombreEst;
+    int identificadorInfo;
   public:
-    
+    DTInfoEstudiante(int c, std::string nombre, int identificadorInfo) : cédula(c), nombreEst(nombre), identificadorInfo(identificadorInfo) {}
 };
+
+
+
 class DTFecha {
   private:
     int dia, mes, anio;
@@ -40,11 +34,30 @@ int DTFecha::getDia() {
   return anio;
 }
 
+
+class Estudiante{
+  private:
+    std::string nombre,email;
+    int cédula;
+  public:
+    std::string toString();
+    std::set<std::string> listarInfo(DTFecha Desde);
+};
+
+std::string Estudiante::toString() {
+  return "El nombre del estudiante es " + nombre + "con email " + email + "y su cédula es " + std::to_string(cédula);
+}
+
+std::set<std::string> Estudiante::listarInfo(DTFecha Desde) {
+  
+}
+
 class Informacion{
   protected:
     int identificador;
     DTFecha fecha;
   public:
+    virtual std::string toString();
     Informacion(int id, DTFecha f) : identificador(id), fecha(f) {}
     int getIdentificador() { return identificador; }
     DTFecha getFecha() { return fecha; }
@@ -56,8 +69,12 @@ private:
     std::set<std::string> autores; //
     std::string resumen;
   public:
-    
+    Libro(int id, DTFecha f,  std::string titulo, std::set<std::string> autores, std::string resumen) : Informacion(id,f), titulo(titulo), autores(autores), resumen(resumen) {}
+    std::string toString();
 };
+std::string Libro::toString() {
+  return "El libro tiene como autores " + std::to_string(autores.size()) + "y tiene como resumen " + resumen;
+}
 
 class PaginaWeb : public Informacion {
   private:
@@ -76,13 +93,15 @@ std::string PaginaWeb:: toString() {
 
 class chatGPT : public Informacion {
   private:
-    std::string Pregunta,Respuesta;
+    std::string pregunta,respuesta;
   public:
-    std::string toString() {
-      return "La respuesta a la pregunta " + Pregunta + " es " + Respuesta + ". Espero que le resulte de ayuda.";
-    };
+    chatGPT(int id, DTFecha f, std::string p, std::string r) : Informacion(id, f), pregunta(p), respuesta(r) {}
+    std::string toString();
 };
 
+std::string chatGPT:: toString() {
+  return "La respuesta a la pregunta " + pregunta + " es " + respuesta + ". Espero que le resulte de ayuda.";
+};
 
 main(){
   
