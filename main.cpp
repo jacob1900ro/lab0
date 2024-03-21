@@ -38,9 +38,13 @@ int DTFecha::getDia() {
 class Estudiante{
   private:
     std::string nombre,email;
-    int cédula;
+    int cedula;
+    std::set<Informacion*> info;
   public:
     std::string toString();
+    void insInfo(Informacion i){ // para agregar la informacion guardada por el estudiante
+      
+    } 
     std::set<std::string> listarInfo(DTFecha Desde);
 };
 
@@ -56,6 +60,7 @@ class Informacion{
   protected:
     int identificador;
     DTFecha fecha;
+    std::set<Estudiante*> estudiantes;
   public:
     virtual std::string toString();
     Informacion(int id, DTFecha f) : identificador(id), fecha(f) {}
@@ -64,7 +69,7 @@ class Informacion{
 };
 
 class Libro : public Informacion {
-private:
+  private:
     std::string titulo;
     std::set<std::string> autores; //
     std::string resumen;
