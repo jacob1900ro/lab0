@@ -55,12 +55,14 @@ std::string Estudiante::toString() {
 std::set<std::string> Estudiante::listarInfo(DTFecha Desde) {
   std::set<std::string> res;
   for ( auto it = info.begin(); it != info.end(); it++ ){
-    if (it.getFecha().getAnio()>=Desde.getAnio() && it.getFecha().getMes()>=Desde.getMes() && it.getFecha.getDia()>=Desde.getDia()) {
-      
+    if ((it.getFecha().getAnio()>Desde.getAnio()) ||(it.getFecha().getAnio()==Desde.getAnio() && it.getFecha().getMes() > Desde.getMes()) || 
+    (it.getFecha().getAnio()==Desde.getAnio() && it.getFecha().getMes()== Desde.getMes() && it.getFecha().getDia()>= Desde.getDia())) {         //toma las fechas mayores o iguales
+      res.insert(it.toString());    //inserta en el arreglo 
     }
-
   }
+  return res;
 }
+
 
 class Informacion{
   protected:
