@@ -1,7 +1,7 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <set>
+#include <iostream.h>
+#include <string.h>
+#include <vector.h>
+#include <set.h>
 
 class DTInfoEstudiante{
   private:
