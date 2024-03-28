@@ -37,7 +37,7 @@ public:
   }
   int getDia() { return dia; };
   int getMes() { return mes; };
-  int getAnio(){return anio};
+  int getAnio() { return anio; };
 };
 
 class Estudiante
@@ -46,21 +46,41 @@ private:
   std::string nombre, email;
   int cedula;
   // std::set<Informacion *> info;
-  std::vector<Informacion *> VectorInfo = std::vector<Informacion *>(0); // Vector de Links a Informacion
+  std::vector<Informacion *> vectorInfo = std::vector<Informacion *>(0); // Vector de Links a Informacion
   
 public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(nombre), email(email), cedula(cedula) {} // Constructor
-  ~Estudiante()
-  { // Destructor
-    
-  };
+  ~Estudiante();
   std::string toString();
   void insInfo(Informacion *i);
+  void eliminarInfo(Informacion *i);
   std::set<std::string> listarInfo(DTFecha Desde);
+  int getCedula(){return cedula;};
 };
+
+Estudiante::~Estudiante(){
+  for(int i=0 ; i < vectorInfo.size(); i++ ) {  
+    vectorInfo[i]->eliminarEst(this);
+  }
+  vectorInfo.clear();
+}
+
+
+void Estudiante::eliminarInfo (Informacion *i){
+  int m=0;
+  while((vectorInfo[m]->getIdentificador()!= i->getIdentificador()) && (m<vectorInfo.size())){
+    m++;
+  }
+  if (m<vectorInfo.size()){
+    vectorInfo.erase(m);
+  }
+  else {
+    std::cout<<"La cagamos xd";
+  }
+}
 
 void Estudiante::InsInfo(Informacion *i)
 {
-  VectorInfo.push_back(i); // se crea un lugar en la informacion
+  vectorInfo.push_back(i); // se crea un lugar en la informacion
   i->insEst(this);////////////////////falta agregarke al estudiante la informacion 
 }
 
@@ -70,8 +90,7 @@ std::string Estudiante::toString()
   return "El nombre del estudiante es " + this->nombre + "con email " + this->email + "y su cedula es " + this->cedula;
 }
 
-std::set<std::string> Estudiante::listarInfo(DTFecha Desde)       ///////////////////////////////
- ALRACIFIDOM////
+std::set<std::string> Estudiante::listarInfo(DTFecha Desde)   
 {
   std::set<std::string> res;
   for (auto it = info.begin(); it != info.end(); it++)
@@ -91,21 +110,43 @@ class Informacion
 protected:
   int identificador;
   DTFecha fecha;
-  std::vector<Estudiante *> EstudiantesInfo = std::vector<Estudiante *>(0);
+  std::vector<Estudiante *> vectorEst = std::vector<Estudiante *>(0);
 
 public:
   virtual std::string toString();
   void insEst(Estudiante *e);
   Informacion(int id, DTFecha f) : identificador(id), fecha(f) {} // Constructor
+  ~Informacion() {} // Destructor
   int getIdentificador() { return identificador; }
   DTFecha getFecha() { return fecha; }
+  void eliminarEst(Estudiante *e);
 };
+
+Informacion::~Informacion(){            //Destructor
+  for(int i=0 ; i < vectorEst.size(); i++ ) {  
+    vectorEst[i]->eliminarInfo(this);
+  }
+  vectorEst.clear();                            //Borra el vector de punteros a estudiantes
+}
 
 
 void Informacion::InsEst(Estudiante *e)
 {
-  EstudiantesInfo.push_back(e); // se crea un lugar en la informacion
-  e->insInfo(this);   ////////////////////falta agregarke a la informacion el estuidante
+  vectorEst.push_back(e); // se crea un lugar en la informacion
+  e->insInfo(this);   //////////////////// agregarle a la informacion el estuidante
+}
+
+void Informacion::eliminarEst (Estudiante * e){
+  int m=0 ;
+  while((vectorEst[m]->getCedula()!= e->getCedula()) && (m<vectorEst.size())){
+    m++;
+  }
+  if (m<vectorInfo.size()){
+    vectorEst.erase(m);
+  }
+  else {
+    std::cout<<"La cagamos xd ";
+  }
 }
 
 class Libro : public Informacion
@@ -119,6 +160,9 @@ public:
   Libro(int id, DTFecha f, std::string titulo, std::set<std::string> autores, std::string resumen) : Informacion(id, f), titulo(titulo), autores(autores), resumen(resumen) {} // Contructor
   std::string toString();
 };
+
+
+
 std::string Libro::toString()
 {
   return "El libro tiene como autores " + std::to_string(autores.size()) + "y tiene como resumen " + this->resumen;
@@ -133,6 +177,7 @@ public:
   PaginaWeb(int id, DTFecha f, std::string t, std::string l, std::string txt)
       : Informacion(id, f), titulo(t), link(l), texto(txt) {}
   std::string toString();
+  ~PaginaWeb(){}
 };
 std::string PaginaWeb::toString()
 {
@@ -155,6 +200,14 @@ public:
 std::string chatGPT::toString()
 {
   return "La respuesta a la pregunta " + this->pregunta + " es " + this->respuesta + ". Espero que le resulte de ayuda.";
+};
+
+void imprimir(Estudiante estudiante){
+  std::cout << "Informacion del estudiante \n";
+  std::set><std::string> infoEstudiante = estudiante.listarInfo(DTFecha(8, 3, 2024));
+    for (const auto &info : infoEstudiante) {
+        std::cout << info << std::endl;
+    }
 };
 
 main()
@@ -196,15 +249,6 @@ acoplamiento y encapsulamiento.
   betina.insInfo(&chatGPT4);
   betina.insInfo(&libro5);
 
-  std::cout << "Informacion de Alex \n";
-  std::set><std::string> infoAlex = alex.listarInfo(DTFecha(8, 3, 2024));
-    for (const auto &info : infoAlex) {
-        std::cout << info << std::endl;
-    }
-
-  std::cout << "Informacion de Betina \n";
-  std::set><std::string> infoBetina = betina.listarInfo(DTFecha(8, 3, 2024));
-    for (const auto &info : infoBetina) {
-        std::cout << info << std::endl;
-    } 
+  imprimir(alex);
+  imprimir(betina);
 };
