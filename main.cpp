@@ -1,13 +1,17 @@
-
 #include <string>
 #include <vector>
 #include <set>
 #include <iostream>
-#include "DTInfoEstudiante.h"
+#include "chatGPT.h"
+//INCLUIR LOS CPP????????
+#include "Estudiante.h"
+#include "Informacion.h"
+#include "Libro.h"
+#include "PaginaWeb.h"
 
-/*
-class DTInfoEstudiante
-{
+
+
+/*class DTInfoEstudiante{
 private:
   int cedula;
   std::string nombreEst;
@@ -15,12 +19,10 @@ private:
 
 public:
   DTInfoEstudiante(int c, std::string nombre, int identificadorInfo) : cedula(c), nombreEst(nombre), identificadorInfo(identificadorInfo) {} // Constructor
-  ~DTInfoEstudiante()
-  {
+  ~DTInfoEstudiante() {
     std::cout << "se borro correctamente";
   };
-};
-*/
+}; */
 
 std::ostream &operator<<(std::ostream &o, const DTInfoEstudiante &estudiante)
 {
@@ -28,7 +30,7 @@ std::ostream &operator<<(std::ostream &o, const DTInfoEstudiante &estudiante)
   return o;
 }
 
-class DTFecha
+/*class DTFecha
 {
 private:
   int dia, mes, anio;
@@ -42,10 +44,10 @@ public:
   int getDia() { return dia; };
   int getMes() { return mes; };
   int getAnio() { return anio; };
-};
+};*/
 
-class Informacion;      //Desclaracion forward de la clase informacion
-class Estudiante
+//class Informacion;      //Desclaracion forward de la clase informacion
+/*class Estudiante
 {
 private:
   std::string nombre, email;
@@ -60,14 +62,14 @@ public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(
   void eliminarInfo(Informacion *i);
   std::set<std::string> listarInfo(DTFecha Desde);
   int getCedula(){return cedula;};
-};
+};*/
 
-Estudiante::~Estudiante(){
+ /*Estudiante::~Estudiante(){
   for(int i=0 ; i < vectorInfo.size(); i++ ) {  
     vectorInfo[i]->eliminarEst(this);
   }
   vectorInfo.clear();
-}
+} 
 
 
 void Estudiante::eliminarInfo (Informacion *i){
@@ -109,8 +111,8 @@ std::set<std::string> Estudiante::listarInfo(DTFecha Desde)
   }
   return res;
 }
-
-class Informacion
+*/
+/*class Informacion
 {
 protected:
   int identificador;
@@ -126,8 +128,8 @@ public:
   DTFecha getFecha() { return fecha; }
   void eliminarEst(Estudiante *e);
 };
-
-Informacion::~Informacion(){            //Destructor
+*/
+/*Informacion::~Informacion(){            //Destructor
   for(int i=0 ; i < vectorEst.size(); i++ ) {  
     vectorEst[i]->eliminarInfo(this);
   }
@@ -138,7 +140,7 @@ Informacion::~Informacion(){            //Destructor
 void Informacion::insEst(Estudiante *e)
 {
   vectorEst.push_back(e); // se crea un lugar en la informacion
-  e->insInfo(this);   //////////////////// agregarle a la informacion el estuidante
+  e->insInfo(this);   /////// agregarle a la informacion el estuidante
 }
 
 void Informacion::eliminarEst (Estudiante * e){
@@ -153,8 +155,8 @@ void Informacion::eliminarEst (Estudiante * e){
     std::cout<<"La cagamos xd ";
   }
 }
-
-class Libro : public Informacion
+*/
+/*class Libro : public Informacion
 {
 private:
   std::string titulo;
@@ -172,8 +174,8 @@ std::string Libro::toString()
 {
   return "El libro tiene como autores " + std::to_string(autores.size()) + "y tiene como resumen " + this->resumen;
 }
-
-class PaginaWeb : public Informacion
+*/
+/*class PaginaWeb : public Informacion
 {
 private:
   std::string titulo, link, texto;
@@ -190,8 +192,8 @@ std::string PaginaWeb::toString()
          std::to_string(fecha.getDia()) + "/" + std::to_string(fecha.getMes()) + "/" + std::to_string(fecha.getAnio()) +
          ", " + this->titulo + ", " + this->link + ", " + this->texto;
 };
-
-class chatGPT : public Informacion
+*/
+/*class chatGPT : public Informacion
 {
 private:
   std::string pregunta, respuesta;
@@ -206,10 +208,10 @@ std::string chatGPT::toString()
 {
   return "La respuesta a la pregunta " + this->pregunta + " es " + this->respuesta + ". Espero que le resulte de ayuda.";
 };
-
+*/
 void imprimir(Estudiante estudiante){
   std::cout << "Informacion del estudiante \n";
-  std::set><std::string> infoEstudiante = estudiante.listarInfo(DTFecha(8, 3, 2024));
+  std::set<std::string> infoEstudiante = estudiante.listarInfo(DTFecha(8, 3, 2024)); 
     for (const auto &info : infoEstudiante) {
         std::cout << info << std::endl;
     }
@@ -217,22 +219,28 @@ void imprimir(Estudiante estudiante){
 
 int main() 
 {
-  PaginaWeb paginaWeb1(1, DTFecha(7, 3, 2024),"" ,"Programación 4 Guía Semana 1 (4/3)","https://eva.fing.edu.uy/pluginfile.php/468051/mod_resource/content/4/Guia01_P42024_IntroCBasicos.pdf", "El objetivo de esta semana es contextualizar el paradigma de Orientación a Objetos (OO) en el marco de la Ingeniería de Software, así como comenzar a ver sus conceptos básicos y cómo éstos se implementan en C++.");
+  void PaginasWeb(){
+    PaginaWeb paginaWeb1(1, DTFecha(7, 3, 2024),"" ,"Programación 4 Guía Semana 1 (4/3)","https://eva.fing.edu.uy/pluginfile.php/468051/mod_resource/content/4/Guia01_P42024_IntroCBasicos.pdf", "El objetivo de esta semana es contextualizar el paradigma de Orientación a Objetos (OO) en el marco de la Ingeniería de Software, así como comenzar a ver sus conceptos básicos y cómo éstos se implementan en C++.");
+    PaginaWeb paginaWeb2(2, DTFecha(5, 3, 2024), "Programación orientada a objetos", "https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos","La programación orientada a objetos (POO, en español) es un paradigma deprogramación que parte del concepto de objetos como base, los cuales contienen información en forma de campos (a veces también referidos como atributos o propiedades) y código en forma de métodos. Algunas características clave de la programación orientada a objetos son herencia, cohesión, abstracción, polimorfismo, acoplamiento y encapsulamiento.");
+    std::cout << paginaWeb1.toString() << std::endl;
+    std::cout << paginaWeb2.toString() << std::endl;
+  }
 
-  PaginaWeb paginaWeb2(2, DTFecha(5, 3, 2024), "Programación orientada a objetos", "https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos","La programación orientada a objetos (POO, en español) es un paradigma deprogramación que parte del concepto de objetos como base, los cuales contienen información en forma de campos (a veces también referidos como atributos o propiedades) y código en forma de métodos. Algunas características clave de la programación orientada a objetos son herencia, cohesión, abstracción, polimorfismo, acoplamiento y encapsulamiento.");
+  void chatGPT(){
+    chatGPT chatGPT3(3, DTFecha(8, 3, 2024), "¿Qué es el polimorfismo en orientación a objetos?", "El polimorfismo en programación orientada a objetos se refiere a la capacidad de un objeto de tomar múltiples formas. Puede ser estático, resuelto en tiempo de compilación, basado en la herencia, o dinámico, resuelto en tiempo de ejecución, asociado a interfaces o métodos abstractos. En esencia, permite que objetos de diferentes clases respondan a la misma interfaz de manera coherente, facilitando la flexibilidad y extensibilidad del código.");
+    chatGPT chatGPT4(4, DTFecha(5,3,2024), "¿Qué es el acoplamiento en orientación a objetos?", "El acoplamiento en programación orientada a objetos se refiere al grado de dependencia entre las clases o módulos de un sistema. Un bajo acoplamiento es deseable, ya que implica que las clases son independientes entre sí, lo que facilita la modificación, mantenimiento y reutilización del código. Por otro lado, un alto acoplamiento indica una fuerte interdependencia entre las clases, lo que puede hacer que el sistema sea más difícil de entender, modificar y mantener.");
+    std::cout << chat1.toString() << std::endl;
+    std::cout << chat2.toString() << std::endl;
+  }
 
-  chatGPT chatGPT3(3, DTFecha(8, 3, 2024), "¿Qué es el polimorfismo en orientación a objetos?", "El polimorfismo en programación orientada a objetos se refiere a la capacidad de un objeto de tomar múltiples formas. Puede ser estático, resuelto en tiempo de compilación, basado en la herencia, o dinámico, resuelto en tiempo de ejecución, asociado a interfaces o métodos abstractos. En esencia, permite que objetos de diferentes clases respondan a la misma interfaz de manera coherente, facilitando la flexibilidad y extensibilidad del código.");
-                   
-  chatGPT chatGPT4(4, DTFecha(5,3,2024), "¿Qué es el acoplamiento en orientación a objetos?", "El acoplamiento en programación orientada a objetos se refiere al grado de dependencia entre las clases o módulos de un sistema. Un bajo acoplamiento es deseable, ya que implica que las clases son independientes entre sí, lo que facilita la modificación, mantenimiento y reutilización del código. Por otro lado, un alto acoplamiento indica una fuerte interdependencia entre las clases, lo que puede hacer que el sistema sea más difícil de entender, modificar y mantener.");
 
-  Libro libro5(5, DTFecha(15,3,2024), "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development", "Craig Larman", "Applying UML and Patterns is the world’s #1 business and college introduction to “thinking in objects”―and using that insight in real-world objectoriented analysis and design. Building on two widely acclaimed previous editions, Craig Larman has updated this book to fully reflect the new UML 2 standard, to help you master the art of object design, and to promote high-impact, iterative, and skillful agile modeling practices.");
-
-  std::cout << paginaWeb1.toString() << std::endl;
-  std::cout << paginaWeb2.toString() << std::endl;
-  std::cout << chat1.toString() << std::endl;
-  std::cout << chat2.toString() << std::endl;
-  std::cout << libro5.toString() << std::endl;
-
+  void Libros(){
+    std::set<std::string> autoresLibro5;
+    autoresLibro5.insert("Craig Larman");
+    Libro libro5(5, DTFecha(15,3,2024), "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development", autoresLibro5, "Applying UML and Patterns is the world’s #1 business and college introduction to “thinking in objects”―and using that insight in real-world objectoriented analysis and design. Building on two widely acclaimed previous editions, Craig Larman has updated this book to fully reflect the new UML 2 standard, to help you master the art of object design, and to promote high-impact, iterative, and skillful agile modeling practices.");
+    std::cout << libro5.toString() << std::endl;  
+  }
+void Estudiantes (){
   Estudiante alex("Alex Garcia", "ag5678@gmail.com", 52365899);
   Estudiante betina("Betina Gonzalez", "beg999@gmail.com", 49891239);
 
@@ -244,6 +252,15 @@ int main()
   betina.insInfo(&chatGPT4);
   betina.insInfo(&libro5);
 
+  listarInfo(alex);
+  listarInfor(betina);
+
   imprimir(alex);
   imprimir(betina);
+}
+
+PaginasWeb();
+
+
+  return 0;
 };
