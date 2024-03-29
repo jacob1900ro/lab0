@@ -2,8 +2,10 @@
 #ifndef INFORMACION_H
 #define INFORMACION_H
 
+#include <string>
 #include <vector>
 #include "DTFecha.h"
+#include "Estudiante.h"
 
 class Estudiante; // declaracion en avanzada
 

@@ -24,11 +24,6 @@ public:
   };
 }; */
 
-std::ostream &operator<<(std::ostream &o, const DTInfoEstudiante &estudiante)
-{
-  // o << "lo que diga el string" //sobrecarga de <<
-  return o;
-}
 
 /*class DTFecha
 {
@@ -217,50 +212,91 @@ void imprimir(Estudiante estudiante){
     }
 };
 
-int main() 
-{
-  void PaginasWeb(){
-    PaginaWeb paginaWeb1(1, DTFecha(7, 3, 2024),"" ,"Programación 4 Guía Semana 1 (4/3)","https://eva.fing.edu.uy/pluginfile.php/468051/mod_resource/content/4/Guia01_P42024_IntroCBasicos.pdf", "El objetivo de esta semana es contextualizar el paradigma de Orientación a Objetos (OO) en el marco de la Ingeniería de Software, así como comenzar a ver sus conceptos básicos y cómo éstos se implementan en C++.");
-    PaginaWeb paginaWeb2(2, DTFecha(5, 3, 2024), "Programación orientada a objetos", "https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos","La programación orientada a objetos (POO, en español) es un paradigma deprogramación que parte del concepto de objetos como base, los cuales contienen información en forma de campos (a veces también referidos como atributos o propiedades) y código en forma de métodos. Algunas características clave de la programación orientada a objetos son herencia, cohesión, abstracción, polimorfismo, acoplamiento y encapsulamiento.");
-    std::cout << paginaWeb1.toString() << std::endl;
-    std::cout << paginaWeb2.toString() << std::endl;
+std::set<DTInfoEstudiante*> Polimorfismo (std::set<Informacion*> info){ // POLIMORFISMO
+  std::set<DTInfoEstudiante*> res;
+  for(auto it = info.begin(); it!= info.end();it++){
+    std::string texto = it->toString(); // texto que guarda la informacion
+    if (texto.find("polimorfismo")!=std::string::npos){
+      for (int j=0;j<it->vectorEst.size();j++){
+        DTInfoEstudiante *e = new DTInfoEstudiante(it->vectorEst[j]->getCedula(), it->vectorEst[j]->getNombre(), it->getIdentificador()); // dtinfo( cedula , nombre , idInfo )
+        res.insert(e);
+      }
+    }
   }
-
-  void chatGPT(){
-    chatGPT chatGPT3(3, DTFecha(8, 3, 2024), "¿Qué es el polimorfismo en orientación a objetos?", "El polimorfismo en programación orientada a objetos se refiere a la capacidad de un objeto de tomar múltiples formas. Puede ser estático, resuelto en tiempo de compilación, basado en la herencia, o dinámico, resuelto en tiempo de ejecución, asociado a interfaces o métodos abstractos. En esencia, permite que objetos de diferentes clases respondan a la misma interfaz de manera coherente, facilitando la flexibilidad y extensibilidad del código.");
-    chatGPT chatGPT4(4, DTFecha(5,3,2024), "¿Qué es el acoplamiento en orientación a objetos?", "El acoplamiento en programación orientada a objetos se refiere al grado de dependencia entre las clases o módulos de un sistema. Un bajo acoplamiento es deseable, ya que implica que las clases son independientes entre sí, lo que facilita la modificación, mantenimiento y reutilización del código. Por otro lado, un alto acoplamiento indica una fuerte interdependencia entre las clases, lo que puede hacer que el sistema sea más difícil de entender, modificar y mantener.");
-    std::cout << chat1.toString() << std::endl;
-    std::cout << chat2.toString() << std::endl;
-  }
-
-
-  void Libros(){
-    std::set<std::string> autoresLibro5;
-    autoresLibro5.insert("Craig Larman");
-    Libro libro5(5, DTFecha(15,3,2024), "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development", autoresLibro5, "Applying UML and Patterns is the world’s #1 business and college introduction to “thinking in objects”―and using that insight in real-world objectoriented analysis and design. Building on two widely acclaimed previous editions, Craig Larman has updated this book to fully reflect the new UML 2 standard, to help you master the art of object design, and to promote high-impact, iterative, and skillful agile modeling practices.");
-    std::cout << libro5.toString() << std::endl;  
-  }
-void Estudiantes (){
-  Estudiante alex("Alex Garcia", "ag5678@gmail.com", 52365899);
-  Estudiante betina("Betina Gonzalez", "beg999@gmail.com", 49891239);
-
-  alex.insInfo(&paginaWeb1);
-  alex.insInfo(&paginaWeb2);
-  alex.insInfo(&chatGPT3);
-  
-  betina.insInfo(&chatGPT3);
-  betina.insInfo(&chatGPT4);
-  betina.insInfo(&libro5);
-
-  listarInfo(alex);
-  listarInfor(betina);
-
-  imprimir(alex);
-  imprimir(betina);
+  return res;
 }
 
-PaginasWeb();
+int main() {
+  std::set<Informacion*> informaciones;
+  
+  /*------------------PAGINAWEB------------------------*/
 
+  PaginaWeb* paginaweb1 = new PaginaWeb(1, DTFecha(7, 3, 2024), "Programación 4 Guía Semana 1 (4/3)", "https://eva.fing.edu.uy/pluginfile.php/468051/mod_resource/content/4/Guia01_P42024_IntroCBasicos.pdf", "El objetivo de esta semana es contextualizar el paradigma de Orientación a Objetos (OO) en el marco de la Ingeniería de Software, así como comenzar a ver sus conceptos básicos y cómo éstos se implementan en C++.");
+  PaginaWeb* paginaWeb2 = new PaginaWeb(2, DTFecha(5, 3, 2024), "Programación orientada a objetos", "https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos","La programación orientada a objetos (POO, en español) es un paradigma deprogramación que parte del concepto de objetos como base, los cuales contienen información en forma de campos (a veces también referidos como atributos o propiedades) y código en forma de métodos. Algunas características clave de la programación orientada a objetos son herencia, cohesión, abstracción, polimorfismo, acoplamiento y encapsulamiento.");
+  informaciones.insert(paginaweb1);
+  informaciones.insert(paginaweb2);
+  /* std::cout << paginaWeb1.toString() << std::endl;
+  std::cout << paginaWeb2.toString() << std::endl; */
+  
+
+
+  /*------------------CHATGPT------------------------*/
+
+  chatGPT* chatgpt3 = new chatGPT(3, DTFecha(8, 3, 2024), "¿Qué es el polimorfismo en orientación a objetos?", "El polimorfismo en programación orientada a objetos se refiere a la capacidad de un objeto de tomar múltiples formas. Puede ser estático, resuelto en tiempo de compilación, basado en la herencia, o dinámico, resuelto en tiempo de ejecución, asociado a interfaces o métodos abstractos. En esencia, permite que objetos de diferentes clases respondan a la misma interfaz de manera coherente, facilitando la flexibilidad y extensibilidad del código.");
+  chatGPT* chatgpt4 = new chatGPT(4, DTFecha(5,3,2024), "¿Qué es el acoplamiento en orientación a objetos?", "El acoplamiento en programación orientada a objetos se refiere al grado de dependencia entre las clases o módulos de un sistema. Un bajo acoplamiento es deseable, ya que implica que las clases son independientes entre sí, lo que facilita la modificación, mantenimiento y reutilización del código. Por otro lado, un alto acoplamiento indica una fuerte interdependencia entre las clases, lo que puede hacer que el sistema sea más difícil de entender, modificar y mantener.");
+  informaciones.insert(chatGPT3);
+  informaciones.insert(chatGPT4);
+  /*std::cout << chat1.toString() << std::endl;
+  std::cout << chat2.toString() << std::endl;*/
+
+
+/*------------------LIBRO------------------------*/
+
+   /*std::set<std::string> autoresLibro5;
+   autoresLibro5.insert("Craig Larman");*/
+  Libro* libro5 = new Libro(5, DTFecha(15,3,2024), "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development", "Craig Larman", "Applying UML and Patterns is the world’s #1 business and college introduction to “thinking in objects”―and using that insight in real-world objectoriented analysis and design. Building on two widely acclaimed previous editions, Craig Larman has updated this book to fully reflect the new UML 2 standard, to help you master the art of object design, and to promote high-impact, iterative, and skillful agile modeling practices.");
+  informaciones.insert(libro5);
+  /* std::cout << libro5.toString() << std::endl;  */
+
+/*-----------------IMPRIMIR INFORMACIONES----------------------*/
+
+for (auto it1=informaciones.begin();it1!=informaciones.end();it1++){
+  std::cout << it1->toString() << std::endl;
+}
+
+/*------------------ESTUDIANTE------------------------*/
+
+  std::set<Estudiante*> estudiantes;
+
+  Estudiante* alex = new Estudiante("Alex Garcia", "ag5678@gmail.com", 52365899);
+  Estudiante* betina= new Estudiante("Betina Gonzalez", "beg999@gmail.com", 49891239);
+  estudiantes.insert(alex);
+  estudiantes.insert(betina);
+
+  for (auto it2 = estudiantes.begin();it2!=estudiantes.end();it2++){
+    std::cout << it2->toString() << std::endl;
+  }
+
+  alex->insInfo(&paginaWeb1);
+  alex->insInfo(&paginaWeb2);
+  alex->insInfo(&chatGPT3);
+  
+  betina->insInfo(&chatGPT3);
+  betina->insInfo(&chatGPT4);
+  betina->insInfo(&libro5);
+
+  alex->listarInfo(DTFecha(8,3,2024));
+  betina->listarInfo(DTFecha(8,3,2024));
+
+  std::set<DTInfoEstudiante*> Encontrados = Polimorfismo(informaciones);
+  for (auto it=Encontrados.begin();it!=Encontrados.end();it++){
+    std::cout << it << std::endl; // (imprime: "52365899, Alex García, 5")
+  }
+
+  delete(PaginaWeb1);
+
+  /*imprimir(alex);
+  imprimir(betina);*/
 
   return 0;
 };

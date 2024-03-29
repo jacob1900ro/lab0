@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <iostream>
+#include "Informacion.h"
 
 class Informacion;
 
@@ -12,7 +13,6 @@ class Estudiante {
     private:
   std::string nombre, email;
   int cedula;
-  // std::set<Informacion *> info;
   std::vector<Informacion *> vectorInfo = std::vector<Informacion *>(0); // Vector de Links a Informacion
   
 public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(nombre), email(email), cedula(cedula) {} // Constructor
@@ -22,6 +22,7 @@ public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(
   void eliminarInfo(Informacion *i);
   std::set<std::string> listarInfo(DTFecha Desde);
   int getCedula(){return cedula;};
+  std::string getNombre(){return nombre;};
 }
 
 class DTInfoEstudiante
@@ -36,6 +37,11 @@ public:
   ~DTInfoEstudiante() {
     std::cout << "Se borro correctamente";
   };
+  friend std::ostream& operator<<(std::ostream& os, const DTInfoEstudiante& estudiante){
+    os << estudiante.cedula << ", " << estudiante.nombreEst << ", " << estudiante.identificadorInfo;
+    return os;
+  }
+  // std::cout << estudiante << std::endl; (imprime: "52365899, Alex García, 5")
 };
 
 #include "Informacion.h" // Incluye la declaracion completa de la clase Informacion
