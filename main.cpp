@@ -3,7 +3,6 @@
 #include <set>
 #include <iostream>
 #include "chatGPT.h"
-//INCLUIR LOS CPP????????
 #include "Estudiante.h"
 #include "Informacion.h"
 #include "Libro.h"

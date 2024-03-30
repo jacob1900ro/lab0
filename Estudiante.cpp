@@ -1,17 +1,20 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include "Estudiante.h"
 #include "Informacion.h"
 #include "PaginaWeb.h"
 #include "ChatGPT.h"
 #include "Libro.h"
 
-std::string Estudiante::toString(){
-  return "El nombre del estudiante es " + this->nombre + "con email " + this->email + "y su cedula es " + this->cedula;
-}
+  std::string Estudiante::toString(){
+  return "El nombre del estudiante es " + this->nombre + " con email " + this->email + " y su cedula es " + std::to_string(this->cedula);
+} 
 
 void Estudiante::insInfo(Informacion *i) {
     vectorInfo.push_back(i); // se crea un lugar en la informacion
-  i->insEst(this);// Se agrega el estudiante a la info
+    /* Estudiante* est = this;
+    i->insEst(est);// Se agrega el estudiante a la info */
 }
 
 void Estudiante::eliminarInfo(Informacion *i) {
@@ -34,10 +37,11 @@ for(int i=0 ; i < vectorInfo.size(); i++ ) {
   vectorInfo.clear();
 }
 
-std::set<std::string> Estudiante::listarInfo(DTFecha Desde)   // Modificar, estamos trabajando con vectores
+std::set<std::string> Estudiante::listarInfo(DTFecha Desde)   
 {
-  std::set<std::string> res;                                                                /////////////////////CAMBIARLA A VECTOR
-  for (int j=0 , j< vectorInfo.size();j++){
+  std::set<std::string> res;
+  for (int j = 0; j<vectorInfo.size();j++)
+  {
     if ((vectorInfo[j]->getFecha().getAnio() > Desde.getAnio()) ||
         (vectorInfo[j]->getFecha().getAnio() == Desde.getAnio() && vectorInfo[j]->getFecha().getMes() > Desde.getMes()) ||
         (vectorInfo[j]->getFecha().getAnio() == Desde.getAnio() && vectorInfo[j]->getFecha().getMes() == Desde.getMes() && vectorInfo[j]->getFecha().getDia() > Desde.getDia()))

@@ -4,7 +4,7 @@
 
 void Informacion::insEst(Estudiante *e) {
     vectorEst.push_back(e); // se crea un lugar en la informacion
-    e->insInfo(this);   //////////////////// agregarle la info al estudiante
+    //e->insInfo(this);   //////////////////// agregarle la info al estudiante
 }
 
 void Informacion::eliminarEst(Estudiante *e) {
@@ -12,7 +12,7 @@ void Informacion::eliminarEst(Estudiante *e) {
     while((vectorEst[m]->getCedula()!= e->getCedula()) && (m<vectorEst.size())){
       m++;
     }
-    if (m<vectorInfo.size()){
+    if (m<vectorEst.size()){
       vectorEst.erase(vectorEst.begin()+m);
     }
     else {

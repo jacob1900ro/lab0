@@ -4,16 +4,15 @@
 
 std::string Libro::toString(){
     std::string res = "";
-    int agregados = 0; 
+    bool primero=true;
     for (const std::string& autor : this->autores){
-        if( agregados != this->autores.size()){
-            res = res + autor + ", "
-            agregados++;
+        if( !primero ){
+            res = res + ", ";
         }
         else{
-            res = res + autor;
+            primero=false;
         }
+        res=res+autor;
     }
-    return "El libro tiene como autores " + res + " y tiene como resumen " + this->resumen;
-    // return "El libro tiene como autores " + std::to_string(autores.size()) + "y tiene como resumen " + this->resumen;
+    return "Libro: " + std::to_string(this->identificador) + ", " +  std::to_string(this->fecha.getDia()) + "/" + std::to_string(this->fecha.getMes()) + "/" + std::to_string(this->fecha.getAnio()) + ", " + this->titulo + ", " + res + ", " + this->resumen;
 }

@@ -11,14 +11,13 @@ class Libro : public Informacion {
     std::string resumen;
 
   public:
-    Libro(int id, DTFecha f, std::string titulo, std::set<std::string> autores, std::string resumen) : Informacion(id, f), titulo(titulo), autores(autores), resumen(resumen) {}//Constructor por Set autores
-    Libro(int id1, DTFecha f1, std::string titulo1, std::string autor1, std::string resumen1) {                                               //Constructor poor String autor
-        Informacion(id1, f1);
-        titulo = titulo1;
-        autores.insert(autor1);
-        resumen = resumen1;
+    Libro(int id, DTFecha f, std::string titulo, std::set<std::string> autores, std::string resumen) : Informacion(id, f), titulo(titulo), autores(autores), resumen(resumen) {} // Contructor
+    Libro(int id1, DTFecha f1, std::string titulo1, std::string autor1, std::string resumen1) : Informacion(id1, f1) {                                               //Constructor poor String autor
+      titulo = titulo1;
+      autores.insert(autor1);
+      resumen = resumen1;
     } 
     std::string toString();
-}
+};
 
 #endif // LIBRO_H
