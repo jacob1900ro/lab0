@@ -15,9 +15,6 @@ void Informacion::eliminarEst(Estudiante *e) {
     if (m<vectorEst.size()){
       vectorEst.erase(vectorEst.begin()+m);
     }
-    else {
-      std::cout<<"La cagamos xd ";
-    }
 }
 
 Informacion::~Informacion(){            //Destructor
@@ -25,4 +22,5 @@ Informacion::~Informacion(){            //Destructor
     vectorEst[i]->eliminarInfo(this);
   }
   vectorEst.clear();                          //Borra el vector de punteros a estudiantes
+  std::cout << "Se eliminó correctamente la información\n";
 }

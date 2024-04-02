@@ -25,9 +25,6 @@ void Estudiante::eliminarInfo(Informacion *i) {
   if (m<vectorInfo.size()){
     vectorInfo.erase(vectorInfo.begin()+m);
   }
-  else {
-    std::cout<<"La cagamos xd";
-  }
 }
 
 Estudiante::~Estudiante() {
@@ -35,6 +32,7 @@ for(int i=0 ; i < vectorInfo.size(); i++ ) {
     vectorInfo[i]->eliminarEst(this);
   }
   vectorInfo.clear();
+  std::cout << "Se eliminó correctamente al estudiante\n";
 }
 
 std::set<std::string> Estudiante::listarInfo(DTFecha Desde)   
@@ -44,7 +42,7 @@ std::set<std::string> Estudiante::listarInfo(DTFecha Desde)
   {
     if ((vectorInfo[j]->getFecha().getAnio() > Desde.getAnio()) ||
         (vectorInfo[j]->getFecha().getAnio() == Desde.getAnio() && vectorInfo[j]->getFecha().getMes() > Desde.getMes()) ||
-        (vectorInfo[j]->getFecha().getAnio() == Desde.getAnio() && vectorInfo[j]->getFecha().getMes() == Desde.getMes() && vectorInfo[j]->getFecha().getDia() > Desde.getDia()))
+        (vectorInfo[j]->getFecha().getAnio() == Desde.getAnio() && vectorInfo[j]->getFecha().getMes() == Desde.getMes() && vectorInfo[j]->getFecha().getDia() >= Desde.getDia()))
     {
       res.insert(vectorInfo[j]->toString());
     }

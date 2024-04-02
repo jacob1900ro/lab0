@@ -1,19 +1,16 @@
 // Estudiante.h
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
-#include <string>
-#include <vector>
-#include <set>
-#include <iostream>
-#include "Informacion.h"
 
-class Informacion;
+#include <set>
+#include "Informacion.h" // Incluye la declaración completa de la clase Informacion
 
 class Estudiante {
     private:
   std::string nombre, email;
   int cedula;
-  std::vector<Informacion *> vectorInfo = std::vector<Informacion *>(0); // Vector de Links a Informacion
+  // std::set<Informacion *> info;
+  std::vector<Informacion *> vectorInfo; // = std::vector<Informacion *>(0); // Vector de Links a Informacion
   
 public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(nombre), email(email), cedula(cedula) {} // Constructor
   ~Estudiante();
@@ -23,7 +20,7 @@ public : Estudiante(std::string nombre, std::string email, int cedula) : nombre(
   std::set<std::string> listarInfo(DTFecha Desde);
   int getCedula(){return cedula;};
   std::string getNombre(){return nombre;};
-}
+};
 
 class DTInfoEstudiante
 {
@@ -37,13 +34,11 @@ public:
   ~DTInfoEstudiante() {
     std::cout << "Se borro correctamente";
   };
-  friend std::ostream& operator<<(std::ostream& os, const DTInfoEstudiante& estudiante){
-    os << estudiante.cedula << ", " << estudiante.nombreEst << ", " << estudiante.identificadorInfo;
-    return os;
-  }
+  friend std::ostream& operator<<(std::ostream& os, const DTInfoEstudiante* estudiante) {
+        os << estudiante->cedula << ", " << estudiante->nombreEst << ", " << estudiante->identificadorInfo;
+        return os;
+    }
   // std::cout << estudiante << std::endl; (imprime: "52365899, Alex García, 5")
 };
-
-#include "Informacion.h" // Incluye la declaracion completa de la clase Informacion
 
 #endif // ESTUDIANTE_H
